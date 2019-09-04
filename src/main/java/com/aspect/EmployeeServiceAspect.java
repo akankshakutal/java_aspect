@@ -1,9 +1,8 @@
 package com.aspect;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -27,5 +26,17 @@ public class EmployeeServiceAspect {
             param = param.concat(joinPoint.getArgs()[args].toString()).concat(" ");
         }
         System.out.println("After method:" + joinPoint.getSignature() + param);
+    }
+
+    @Pointcut("execution(* com.service.*.*(..))")
+    private void forController(){}
+
+
+    @Around("forController()")
+    public void aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+        System.out.println("Around advice");
+        Object[] args = proceedingJoinPoint.getArgs();
+        Object result = proceedingJoinPoint.proceed(args);
+        System.out.println("Returning " + result);
     }
 }
