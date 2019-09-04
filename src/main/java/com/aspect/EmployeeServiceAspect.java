@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeServiceAspect {
 
-    @Before(value = "execution(* com.service.EmployeeService.*(..)) and args(name,empId)")
-    public void beforeAdvice(JoinPoint joinPoint, String name, String empId) {
+    @Before(value = "execution(* com.service.EmployeeService.*(..))")
+    public void beforeAdvice(JoinPoint joinPoint) {
         System.out.println("Before method:" + joinPoint.getSignature());
     }
 
-    @After(value = "execution(* com.service.EmployeeService.*(..)) and args(name,empId)")
-    public void afterAdvice(JoinPoint joinPoint, String name, String empId) {
+    @After(value = "execution(* com.service.EmployeeService.*(..))")
+    public void afterAdvice(JoinPoint joinPoint) {
         System.out.println("After method:" + joinPoint.getSignature());
     }
 
@@ -24,11 +24,11 @@ public class EmployeeServiceAspect {
         System.out.println("logging at Annotation Pointcut Designators");
     }
 
-    @Pointcut("execution(* com.service.EmployeeService.*(..)) and args(name,empId)")
+    @Pointcut("execution(* com.service.EmployeeService.*(..))")
     private void forController(){}
 
 
-    @Around("forController() and args()")
+    @Around("forController()")
     public void aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
         System.out.println("Around advice");
         Object[] args = proceedingJoinPoint.getArgs();
