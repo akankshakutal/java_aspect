@@ -20,19 +20,19 @@ public class EmployeeServiceAspect {
     }
 
     @Before("@annotation(com.Loggable)")
-    public void beforeAdvice(){
+    public void annotation(){
         System.out.println("logging at Annotation Pointcut Designators");
     }
 
-    @Pointcut("execution(* com.service.EmployeeService.*(..))")
-    private void forController(){}
-
-
-    @Around("forController()")
-    public void aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
-        System.out.println("Around advice");
-        Object[] args = proceedingJoinPoint.getArgs();
-        Object result = proceedingJoinPoint.proceed(args);
-        System.out.println("Returning " + result);
-    }
+//    @Pointcut("execution(* com.service.EmployeeService.*(..))")
+//    private void forController(){}
+//
+//
+//    @Around("forController()")
+//    public void aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+//        System.out.println("Around advice");
+//        Object[] args = proceedingJoinPoint.getArgs();
+//        Object result = proceedingJoinPoint.proceed(args);
+//        System.out.println("Returning " + result);
+//    }
 }
